@@ -1,2 +1,3 @@
 # FE
-newGenes Frontend repository
+Development of a platform for detecting obesity genes and recommending lifestyle habits
+stack : react
