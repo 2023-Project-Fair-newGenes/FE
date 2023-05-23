@@ -1,5 +1,6 @@
 import { UNSAFE_getPathContributingMatches } from '@remix-run/router';
 import React, { useState, useEffect } from 'react';
+import BMIGraph from '../img/bmi_graph.png'
 
 
 export const BMI_component = (props)=>{
@@ -26,7 +27,7 @@ export const BMI_component = (props)=>{
                 <span class="fs-3">{userName}님은 현재 {userBmiText}입니다...</span>
             </div>
             <div class="ms-5 mt-3 border">
-                <img src="..\img\bmi.jpg" alt="어머 왜 안보이지"></img>
+                <img src={BMIGraph} alt="어머 왜 안보이지"></img>
             </div>
         </div>
     );
