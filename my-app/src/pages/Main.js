@@ -90,7 +90,7 @@ export const Main = () =>{
         <div class="d-flex flex-column ">
             <Header></Header>
             <div class="d-flex flex-row" >
-                <div class="d-flex flex-column ms-5 mt-3 ps-5">
+                <div class="d-flex flex-column ms-5 mt-3 ps-5 pt-3">
                     <div class="">
                         <span class="fs-4">당신의 유전자형 정보를 입력하세요</span>
                     </div>
@@ -101,7 +101,7 @@ export const Main = () =>{
                     </div>
                 </div>
 
-                <div class="d-flex flex-column ms-5 mt-3 ps-5">
+                <div class="d-flex flex-column ms-5 mt-3 ps-5 pt-3">
                     <div class="">
                         <span class="fs-4">비만도 계산을 위한 신장과 체중 정보를 입력해주세요.</span>
                     </div>
