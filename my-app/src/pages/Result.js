@@ -8,22 +8,12 @@ import axios from "axios";
 
 export const Result = () =>{
     const location = useLocation();
+    const [isLaoded,setIsLoaded] = useState(false);
     const [userHeight, setUserHeight] = useState(0.0);
     const [userWeight, setUserWeight] = useState(0.0);
     const [user_id,setUserID] = useState("FB1234");
     const [userBMI, setUserBMI] = useState(0);
-    const [genomeCharacteristicList,setGenomeCharacteristicList]=useState([
-        {
-            "id" : "LUCY",
-            "snp_name" : "신예찬",
-            "characteristic" :"혜진스와 결혼할 남자."
-        },
-        {
-            "id" : "호피폴라",
-            "snp_name" : "하현상",
-            "characteristic" :"혜진스와 평생을 함께 할 남자."
-        }
-    ]);
+    const [genomeCharacteristicList,setGenomeCharacteristicList]=useState([]);
     const URL ="http://ec2-54-234-221-150.compute-1.amazonaws.com:8080/result";
 
 
@@ -37,17 +27,17 @@ export const Result = () =>{
         setUserBMI(calculate.toFixed(2));
 
 
-        axios.get(URL,{prams:
+        axios.get(URL,{params:
             {user_id : user_id}
-        }).then(data =>{
-            console.log(data)
-            console.log("스읍 왜이럴까")
+        }).then(response =>{
+            console.log(response.data)
 
-            // setGenomeCharacteristicList(data);
+            setGenomeCharacteristicList(response.data);
+            setIsLoaded(true);
         },e=>{
         })
 
-    },[genomeCharacteristicList])
+    },[isLaoded])
 
 
 
@@ -71,7 +61,7 @@ export const Result = () =>{
                         <tbody>
                             {genomeCharacteristicList.map(data=>{
                                 return <GenomeInfo snp_id={data.id} 
-                                snp_name={data.snp_name} characteristic={data.characteristic}></GenomeInfo>;
+                                snp_name={data.snp_name} characteristic={data.characteristics}></GenomeInfo>;
                             })}
                         </tbody> 
                     </table>
