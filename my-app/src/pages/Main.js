@@ -45,9 +45,9 @@ export const Main = () =>{
         setUserId(String(Math.floor(Math.random()*1000000)).padStart(6, "0"))
 
 
-        const URL ="api/upload";
+        const URL ="http://ec2-54-234-221-150.compute-1.amazonaws.com:8080/upload";
 
-
+        
         // axios.post(URL,{
         //     user_id : user_id,
         //     genome_file : userGenomeFile
@@ -56,8 +56,8 @@ export const Main = () =>{
         //         headers : {
         //         "Content-Type":"multipart/form-data"
         //         }
-        //     }).then(response=>{
-        //     console.log(response)
+        //     }).then(data=>{
+        //     console.log(data)
         //     navigate('/result',{
         //         state:{
         //             userHeight : userHeight,
@@ -68,6 +68,7 @@ export const Main = () =>{
         // },e =>{
         //     alert("요청이 처리되지 않았습니다. : "+ e);
         // })
+
         navigate('/result',{
             state:{
                 userHeight : userHeight,
