@@ -6,37 +6,30 @@ import axios from "axios";
 
 export const LifeStyleInfo = ()=>{
     const location = useLocation();
-    const [id,setSnpId]=useState("");
+    const [snp_id,setSnpId]=useState("rs9939609");
     const [charList, setCharList] = useState([])
-    const [dataList,setDataList]=useState(
-        {
-            "id" : "LUCY",
-            "info" : [
-                "언젠가부터 혜진스의 마음을 점령한 큐티빠띠 뽀짝뽀짝 바이올리니스트",
-                "생긴건 또 왜 저렇게 브루니처럼 생겨가지고 사람 맘을 휘저어두고 댕기는 지 모르겠지만",
-                "일단 졀라리 귀여운 건 불변입니다."]
-        }
-    )
+    
+    const URL ="http://ec2-54-234-221-150.compute-1.amazonaws.com:8080/requestInfo";
 
 
     useEffect(()=>{
-        setSnpId(location.id);
-        setCharList(JSON.parse(JSON.stringify(dataList.info)))
-        console.log(charList[0])
+        // setSnpId(location.id);
+        
 
-        // axios.get("api/requestInfo",{
-        //     id : id
-        // }).then(response =>{
-        //     setDataList(response);
-        //     setCharList(JSON.parse(JSON.stringify(dataList.info)))
-        // })
-    },[dataList])
+        axios.get(URL,{
+            params:{id : snp_id}
+        }).then(response =>{
+            
+            setCharList(response.data.lifestyle_info)
+        })
+    },[charList])
 
     
     return (
         <div class="mt-3 ms-5">
              <Header></Header>
              <div class="mt-5">
+                 <div class="fs-4 mb-4">{snp_id}에 관한 정보입니다</div>
                 <table class="table  table-hover">
                     <tbody>
                         {charList.map(data=>{
