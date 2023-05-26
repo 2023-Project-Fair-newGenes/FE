@@ -11,7 +11,7 @@ export const Result = () =>{
     const [isLaoded,setIsLoaded] = useState(false);
     const [userHeight, setUserHeight] = useState(0.0);
     const [userWeight, setUserWeight] = useState(0.0);
-    const [user_id,setUserID] = useState("FB1234");
+    const [user_id,setUserID] = useState("");
     const [userBMI, setUserBMI] = useState(0);
     const [genomeCharacteristicList,setGenomeCharacteristicList]=useState([]);
     const URL ="http://ec2-54-234-221-150.compute-1.amazonaws.com:8080/result";
@@ -21,7 +21,7 @@ export const Result = () =>{
     useEffect(()=>{
         setUserHeight(location.state.userHeight/100);
         setUserWeight(location.state.userWeight);
-        // setUserID(location.state.userId);
+        setUserID(location.state.userId);
 
         var calculate = userWeight/(userHeight**2);
         setUserBMI(calculate.toFixed(2));

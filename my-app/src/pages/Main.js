@@ -11,78 +11,61 @@ export const Main = () =>{
     const [userHeight, setUserHeight] = useState('');
     const [userWeight, setUserWeight] = useState('');
     const [userGender, setUserGender] = useState('');
-    const [userGenomeFile, setUserGenomeFile] = useState('');
-    const [user_id , setUserId] = useState("000000")
+    const [uploadedGenomeFile, setUploadedGenomeFile] = useState('');
+    const [user_id , setUserId] = useState("")
     var BMI;
 
-    const loadGenomeFile = async(e)=>{
-        e.preventDefault();
-        const formData = new FormData();
-        
-        
-        if(e.target.files){
-        const uploadFile = e.target.files[0]
-        formData.append('file',uploadFile)
-        setUserGenomeFile(uploadFile)
-        console.log(uploadFile)
-        console.log('===useState===')
-        console.log(userGenomeFile)
-        }
-
-        const genome_file ={
-            data : formData,
-            headers : {
-                "Content-Type":"multipart/form-data"
-            }
-        }
-
-        setUserGenomeFile(JSON.stringify(genome_file))
+    const handleRadioBtn = (e)=>{
+        setUserGender(e.target.value);
     }
 
+    const handleGenomeFileChange = (e)=>{
+        setUploadedGenomeFile(e.target.files[0]);
+    }
+    
 
     const uploadGenomeFile = async(e)=>{
         alert("분석을 진행합니다.");
-        setUserId(String(Math.floor(Math.random()*1000000)).padStart(6, "0"))
+        var randomNum = String(Math.floor(Math.random()*1000000)).padStart(6, "0");
+        setUserId( randomNum)
 
 
         const URL ="http://ec2-54-234-221-150.compute-1.amazonaws.com:8080/upload";
 
-        
-        axios.post(URL,{
-            user_id : user_id,
-            genome_file : userGenomeFile
-            },
-            {
-                headers : {
-                "Content-Type":"multipart/form-data"
-                }
-            }).then(data=>{
-            console.log(data)
-            navigate('/result',{
-                state:{
-                    userHeight : userHeight,
-                    userWeight : userWeight,
-                    userId : user_id
-                }
-            });
-        },e =>{
+
+        const formData = new FormData();
+        formData.append("genome_file",uploadedGenomeFile)
+        formData.append("user_id",user_id);
+
+        fetch(URL, {
+            method: 'POST',
+            body:  formData,
+            },{
+                  headers : {
+                  "Content-Type":"multipart/form-data"
+                  }
+            })
+            .then(data => {
+                console.log(user_id)
+                console.log(formData)
+                navigate('/result',{
+                    state:{
+                        userHeight : userHeight,
+                        userWeight : userWeight,
+                        userId : user_id
+                    }
+                });
+            })
+            .catch(error => {
             alert("요청이 처리되지 않았습니다. : "+ e);
-        })
-
-        // navigate('/result',{
-        //     state:{
-        //         userHeight : userHeight,
-        //         userWeight : userWeight,
-        //         userId : user_id
-        //     }
-        // });
+            });
+        
+        // setUserGenomeFile(JSON.stringify(genome_file))
+    
         
     }
 
-    const handleRadioBtn = (e)=>{
-        setUserGender(e.target.value);
-        console.log(userGender);
-    }
+ 
 
     
 
@@ -96,7 +79,7 @@ export const Main = () =>{
                     </div>
                     <div class="mt-3">
                         <form s class="border border-primary border-2 rounded-4">
-                            <input type="file" name="genomeFileUpload" class="m-5 p-5 " onChange={loadGenomeFile}></input>
+                            <input type="file" name="genomeFileUpload" class="m-5 p-5 " onChange={handleGenomeFileChange}></input>
                         </form>
                     </div>
                 </div>
