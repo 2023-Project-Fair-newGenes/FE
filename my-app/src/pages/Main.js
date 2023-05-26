@@ -48,35 +48,34 @@ export const Main = () =>{
         const URL ="http://ec2-54-234-221-150.compute-1.amazonaws.com:8080/upload";
 
         
-        // axios.post(URL,{
-        //     user_id : user_id,
-        //     genome_file : userGenomeFile
-        //     },
-        //     {
-        //         headers : {
-        //         "Content-Type":"multipart/form-data"
-        //         }
-        //     }).then(data=>{
-        //     console.log(data)
-        //     navigate('/result',{
-        //         state:{
-        //             userHeight : userHeight,
-        //             userWeight : userWeight,
-        //             userId : user_id
-        //         }
-        //     });
-        // },e =>{
-        //     alert("요청이 처리되지 않았습니다. : "+ e);
-        // })
+        axios.post(URL,{
+            user_id : user_id,
+            genome_file : userGenomeFile
+            },
+            {
+                headers : {
+                "Content-Type":"multipart/form-data"
+                }
+            }).then(data=>{
+            console.log(data)
+            navigate('/result',{
+                state:{
+                    userHeight : userHeight,
+                    userWeight : userWeight,
+                    userId : user_id
+                }
+            });
+        },e =>{
+            alert("요청이 처리되지 않았습니다. : "+ e);
+        })
 
-        navigate('/result',{
-            state:{
-                userHeight : userHeight,
-                userWeight : userWeight,
-                userId : user_id
-            }
-        });
-
+        // navigate('/result',{
+        //     state:{
+        //         userHeight : userHeight,
+        //         userWeight : userWeight,
+        //         userId : user_id
+        //     }
+        // });
         
     }
 
